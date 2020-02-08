@@ -11,7 +11,6 @@ public class PlayerUI : MonoBehaviour
     public List<Transform> UITransforms;
     public Material correctMaterial;
     public Material wrongMaterial;
-    public Image fillbar;
 
     private KeyboardInput keyInputs;
     private bool isInitialized = false;
@@ -37,11 +36,6 @@ public class PlayerUI : MonoBehaviour
             keyScripts.Add(key, copyKey.gameObject);
             index++;
         }
-    }
-
-    public void UpdateMeterUI(float percent)
-    {
-        fillbar.fillAmount = percent;
     }
 
     public void updateKeyUi(List<KeyCode> keys)

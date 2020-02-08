@@ -49,9 +49,6 @@ public class Player : MonoBehaviour
     public GameObject CarriedCopy => carriedCopy;
     private GameObject carriedCopy;
 
-    public float maxControllTime;
-    public float controllTime;
-
     private void Awake() {
         keyInputs = GameObject.FindObjectOfType<KeyboardInput>();
         depot = GameObject.FindObjectOfType<Depot>();
@@ -65,7 +62,6 @@ public class Player : MonoBehaviour
 
         meshRenderer.material = new Material(meshRenderer.material);
         meshRenderer.material.SetColor("_BaseColor", inactiveColor);
-        controllTime = maxControllTime;
         SetMoving(false);
         enemyLayer = LayerMask.NameToLayer("Enemy");
 
@@ -88,19 +84,6 @@ public class Player : MonoBehaviour
         {
             DOTween.To(x => meshRenderer.material.SetColor("_BaseColor", Color.Lerp(activeColor, inactiveColor, x)), 0, 1, 0.25f);
         }
-        if(Input.GetKey(ControllKey))
-        {
-            controllTime = Mathf.Max(controllTime - Time.deltaTime, 0);
-            if(controllTime <= 0)
-            {
-                Stun(null);
-            }
-        }
-        else
-        {
-            controllTime = Mathf.Min(controllTime + Time.deltaTime, maxControllTime);
-        }
-        PlayerUI.UpdateMeterUI(controllTime / maxControllTime);
     }
 
     TweenerCore<Vector3, Vector3, VectorOptions> moveTween;
